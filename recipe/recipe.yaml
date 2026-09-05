@@ -33,7 +33,9 @@ tests:
       imports:
         - opt_einsum_fx
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}
+        - "*"
 
 about:
   summary: Einsum optimization using opt_einsum and PyTorch FX

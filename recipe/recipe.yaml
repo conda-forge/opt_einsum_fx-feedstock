@@ -1,0 +1,48 @@
+schema_version: 1
+
+context:
+  name: opt_einsum_fx
+  version: "0.1.4"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/opt_einsum_fx-${{ version }}.tar.gz
+  sha256: 7eeb7f91ecb70be65e6179c106ea7f64fc1db6319e3d1289a4518b384f81e74f
+
+build:
+  number: 2
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+    - setuptools
+  run:
+    - opt-einsum
+    - packaging
+    - python >=${{ python_min }}
+    - pytorch >=1.8.0
+
+tests:
+  - python:
+      imports:
+        - opt_einsum_fx
+      pip_check: true
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
+about:
+  summary: Einsum optimization using opt_einsum and PyTorch FX
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/Linux-cpp-lisp/opt_einsum_fx
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
